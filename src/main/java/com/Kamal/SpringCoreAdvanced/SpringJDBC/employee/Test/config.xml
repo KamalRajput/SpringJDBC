@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!--  so here we need to define two things , first is datasource and second we need 
+	to inject it into JdbcTemplate. You can see the classpath using Ctrl+shift+T.
+	
+	Also p:datasource-ref is the name of the object as defined in JdbcTemplate class  -->
+	
+	<context:component-scan base-package="com.Kamal.SpringCoreAdvanced.SpringJDBC.employee.dao.impl"/>
+
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" name="datasource"
+	  p:driverClassName="oracle.jdbc.driver.OracleDriver" p:url="jdbc:oracle:thin:@localhost:1521:xe"
+	  p:username="scott" p:password="tiger"/>
+	  
+	<bean class="org.springframework.jdbc.core.JdbcTemplate" name="template" p:dataSource-ref="datasource"/>
+	
+	<!-- manual configuration is commented as i have autowired jdbcTemplate into EmployeeDaoImpl -->
+	
+	<!-- <bean class="com.Kamal.SpringCoreAdvanced.SpringJDBC.employee.dao.impl.EmployeeDaoImpl" name="empDaoImpl">
+	<property name="jd" ref="template"/>
+	
+	</bean> -->
+
+</beans>
